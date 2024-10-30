@@ -61,9 +61,8 @@ export default Scoreboard = ({ navigation }) => {
                 <Text style={style.scoreboardTitle}>Top 5</Text>
                 {scores.length === 0 ? (
                     <Text style={style.emptyScoreboardText}>Scoreboard is empty</Text>
-                )
-                    :
-                    (
+                ) : (
+                    <>
                         <DataTable>
                             <DataTable.Header>
                                 <DataTable.Title>Player</DataTable.Title>
@@ -80,13 +79,14 @@ export default Scoreboard = ({ navigation }) => {
                                 </DataTable.Row>
                             ))}
                         </DataTable>
-                    )}
-                <Button
-                    mode="contained"
-                    onPress={() => clearScoreboard()}
-                    style={style.clearScoreboard}>
-                    CLEAR SCOREBOARD
-                </Button>
+                        <Button
+                            mode="contained"
+                            onPress={() => clearScoreboard()}
+                            style={style.clearScoreboard}>
+                            CLEAR SCOREBOARD
+                        </Button>
+                    </>
+                )}
             </View>
             <Footer />
         </View>

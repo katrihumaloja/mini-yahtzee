@@ -27,6 +27,7 @@ export default Gameboard = ({ navigation, route }) => {
     const [totalPoints, setTotalPoints] = useState(0)
     const [bonusPoints, setBonusPoints] = useState(0)
     const [bonusMessage, setBonusMessage] = useState('')
+    const [dicesThrown, setDicesThrown] = useState(false)
 
     useEffect(() => {
         if (playerName === '' && route.params?.player) {
@@ -43,7 +44,7 @@ export default Gameboard = ({ navigation, route }) => {
 
     useEffect(() => {
         const calculatedTotal = dicePointsTotal.reduce((acc, points) => acc + points, 0)
-        
+
         if (calculatedTotal >= BONUS_POINTS_LIMIT) {
             setBonusPoints(BONUS_POINTS)
             setBonusMessage('Congrats! Bonus points (50) added')
@@ -249,15 +250,24 @@ export default Gameboard = ({ navigation, route }) => {
         setNbrOfThrowsLeft(nbrOfThrowsLeft - 1)
         setDiceSpots(spots)
         setStatus('Select and throw dices again.')
+        setDicesThrown(true)
     }
 
     return (
         <View style={style.container}>
             <Header />
             <View style={style.gameboard}>
-                <Container>
-                    <Row>{dicesRow}</Row>
-                </Container>
+                {!dicesThrown ? (
+                    <MaterialCommunityIcons
+                        name="dice-multiple"
+                        size={moderateScale(90)}
+                        color="#107869"
+                    />
+                ) : (
+                    <Container>
+                        <Row>{dicesRow}</Row>
+                    </Container>
+                )}
                 <Text style={style.text}>Throws left: {nbrOfThrowsLeft}</Text>
                 <Text style={style.text}>{status}</Text>
                 <Button
